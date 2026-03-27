@@ -7,9 +7,17 @@ import { provideHttpClient, withFetch, withInterceptorsFromDi } from '@angular/c
 import { providePrimeNG } from 'primeng/config';
 import { BeltTheme } from '../assets/theme/beltTheme';
 import { ConfirmationService, MessageService } from 'primeng/api';
+import { provideFirebaseApp, initializeApp } from '@angular/fire/app';
+import { provideAuth, getAuth } from '@angular/fire/auth';
+import { provideFirestore, getFirestore } from '@angular/fire/firestore';
+import { firebaseConfig } from '../environments/environments';
 
 export const appConfig: ApplicationConfig = {
   providers: [
+    provideFirebaseApp(() => initializeApp(firebaseConfig)),
+    provideAuth(() => getAuth()),
+    provideFirestore(() => getFirestore()),
+    provideRouter(routes),
     provideHttpClient(
       withFetch(),
       withInterceptorsFromDi()
