@@ -1,0 +1,26 @@
+// IMPORTAÇÃO DE SCSS LAYOUT
+@use './variables/_common';
+@use './variables/_light';
+@use './variables/_dark';
+
+@use './core.scss';
+@use './_mixins';
+@use './_preloading';
+@use './_main';
+@use './_responsive';
+@use './_utils';
+@use './_typography';
+@use './_theme-switch';
+
+@use './primeng/p-dialog';
+@use './primeng/p-responsive';
+@use './primeng/p-table';
+@use './primeng/p-button';
+@use './primeng/p-select';
+@use './primeng/p-multselect';
+@use './primeng/p-fileUpload';
+@use './primeng/p-stepper';
+
+@use './project/button';
+@use './project/loader';
+@use './project/text';

@@ -1,0 +1,13 @@
+.p-datatable-header {
+  border: 0 !important;
+
+  div {
+    color: var(--project-color) !important;
+  }
+}
+
+.p-datatable tbody {
+  tr:hover {
+    background-color: color-mix(in srgb, var(--p-datatable-row-hover-background) 50%, transparent) !important;
+  }
+}

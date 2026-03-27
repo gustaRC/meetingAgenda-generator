@@ -1,0 +1,8 @@
+.academy-btn {
+  background-color: var(--project-color) !important;
+  border-color: var(--project-color-secondary) !important;
+
+  &:hover {
+    filter: brightness(0.95);
+  }
+}

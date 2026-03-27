@@ -1,0 +1,84 @@
+.bg-default {
+  @apply bg-gray-50 !important;
+}
+
+.bg-sidebar-item {
+  @apply bg-gray-200 !important;
+}
+
+.bg-sidebar-item-hover {
+  &:hover {
+    @apply bg-gray-200 !important;
+  }
+}
+
+.bg-sidebar-subitem {
+  @apply bg-gray-100 !important;
+}
+
+.bg-sidebar-subitem-hover {
+  &:hover {
+    @apply bg-gray-300 !important;
+  }
+}
+
+.text-title-toast {
+  @apply text-gray-900 !important;
+}
+
+.text-desc-toast {
+  @apply text-gray-600 !important;
+}
+
+.correct-alternative {
+  background-color: var(--p-green-300) !important;
+  border: 1px solid var(--p-green-500) !important;
+}
+
+// DARK THEME
+.dark {
+  .bg-default {
+    @apply bg-gray-800 !important;
+  }
+
+  .bg-sidebar-item {
+    @apply bg-gray-700 !important;
+  }
+
+  .bg-sidebar-item-hover {
+    &:hover {
+      @apply bg-gray-700 !important;
+    }
+  }
+
+  .bg-sidebar-subitem {
+    @apply bg-gray-900 !important;
+  }
+
+  .bg-sidebar-subitem-hover {
+    &:hover {
+      @apply bg-gray-700 !important;
+    }
+  }
+
+  .text-title-toast {
+    @apply text-gray-200 !important;
+  }
+
+  .text-desc-toast {
+    @apply text-gray-300 !important;
+  }
+
+  .form-reminder-text {
+    color: var(--gray-400) !important
+  }
+
+  .form-label-alter-button {
+    color: var(--gray-300) !important
+  }
+
+  .correct-alternative {
+    background-color: var(--p-green-500) !important;
+    border: 1px solid var(--p-green-700) !important;
+  }
+}

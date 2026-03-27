@@ -1,0 +1,34 @@
+.p-fileupload-file-thumbnail {
+  width: auto !important;
+  max-height: 8rem !important;
+}
+
+.p-fileupload-advanced {
+  border-style: dashed !important;
+  overflow: hidden !important;
+}
+
+.p-fileupload-file {
+  margin-bottom: 0 !important;
+  padding-bottom: 0 !important;
+  padding-top: 3px !important;
+}
+
+.p-fileupload-file-name {
+  font-size: 12px !important;
+  white-space: pre-line;
+  word-break: break-all;
+}
+
+.p-fileupload-file-size {
+  font-size: 12px !important;
+  text-align: right;
+}
+
+.p-fileupload-file-actions > p-button {
+  display: none !important;
+}
+
+.p-fileupload-header {
+  flex-wrap: wrap;
+}

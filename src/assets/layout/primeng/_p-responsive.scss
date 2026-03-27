@@ -1,0 +1,32 @@
+// mobile
+@media (max-width: 768px) {
+}
+
+//!= mobile
+@media (min-width: 768px) {
+  .p-dialog-maximized {
+    padding-left: 50px !important;
+  }
+
+  .p-fileupload-file {
+    flex-wrap: nowrap !important;
+  }
+}
+
+@media (max-width: 1100px) {
+  .p-dialog {
+    width: 80vw !important;
+  }
+}
+
+@media (max-width: 575px) {
+  .p-dialog {
+    width: 100vw !important;
+  }
+}
+
+@media (max-width: 400px) {
+  .p-popover {
+    width: 100vw !important;
+  }
+}
