@@ -15,7 +15,7 @@ export class AuthService {
   async loginWithGoogle(): Promise<void> {
     const provider = new GoogleAuthProvider();
     // Solicita permissão ao Drive
-    provider.addScope('https://www.googleapis.com/auth/drive.file');
+    provider.addScope('https://www.googleapis.com/auth/drive');
     provider.addScope('https://www.googleapis.com/auth/drive.readonly');
 
     const result = await signInWithPopup(this.auth, provider);

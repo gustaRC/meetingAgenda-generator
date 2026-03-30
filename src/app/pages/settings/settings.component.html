@@ -1,0 +1,187 @@
+<p-toast position="top-right" />
+
+@if (carregando()) {
+  <div class="loading-overlay">
+    <p-progressSpinner strokeWidth="4" />
+    <p>Carregando configurações...</p>
+  </div>
+}
+
+@if (!carregando()) {
+  <div class="config-container">
+
+    <!-- ── CABEÇALHO ─────────────────────────────────────────── -->
+    <div class="page-header">
+      <h1><i class="pi pi-sliders-h"></i> Configurações</h1>
+      <p class="subtitle">Configure uma vez, use toda semana.</p>
+    </div>
+
+    <!-- ══════════════════════════════════════════════════════════
+         CARD 1 — Google Drive
+    ═══════════════════════════════════════════════════════════ -->
+    <p-card styleClass="config-card">
+      <ng-template pTemplate="header">
+        <div class="card-header">
+          <i class="pi pi-google"></i>
+          <span>Google Drive</span>
+        </div>
+      </ng-template>
+
+      <!-- Instrução -->
+      <div class="instrucao-box">
+        <i class="pi pi-info-circle"></i>
+        <div>
+          <strong>Como obter o ID de uma pasta ou arquivo?</strong>
+          <p>
+            Abra a pasta ou arquivo no Google Drive, copie a URL e cole abaixo —
+            o app extrai o ID automaticamente. Você também pode colar o ID diretamente.
+          </p>
+          <button class="link-btn" (click)="abrirDrive()">
+            <i class="pi pi-external-link"></i> Abrir Google Drive
+          </button>
+        </div>
+      </div>
+
+      <p-divider />
+
+      <!-- Pasta raiz -->
+      <div class="field-group">
+        <label class="field-label">
+          Pasta raiz das pautas
+          <span class="required">*</span>
+        </label>
+        <p class="field-desc">
+          Pasta principal onde ficam todas as pautas. Ex: <code>Reuniões / Pautas</code>
+        </p>
+        <div class="input-validate-row">
+          <input
+            pInputText
+            type="text"
+            placeholder="Cole a URL ou ID da pasta..."
+            [ngModel]="driveRootFolderId()"
+            (ngModelChange)="onPastaInput($event)"
+            [class.input-ok]="pastaValidada() === true"
+            [class.input-erro]="pastaValidada() === false"
+            class="flex-input"
+          />
+          <p-button
+            label="Validar"
+            icon="pi pi-check"
+            severity="secondary"
+            [outlined]="true"
+            [loading]="validandoDrive()"
+            [disabled]="!driveRootFolderId().trim() || validandoDrive()"
+            (onClick)="validarPasta()"
+          />
+        </div>
+
+        @if (pastaValidada() === true) {
+          <div class="feedback ok">
+            <i class="pi pi-check-circle"></i> Pasta encontrada e acessível.
+          </div>
+        }
+        @if (pastaValidada() === false) {
+          <div class="feedback erro">
+            <i class="pi pi-times-circle"></i> Pasta não encontrada. Verifique o ID e as permissões.
+          </div>
+        }
+      </div>
+
+      <p-divider />
+
+      <!-- Arquivo base -->
+      <div class="field-group">
+        <label class="field-label">
+          Arquivo base para copiar
+          <span class="required">*</span>
+        </label>
+        <p class="field-desc">
+          Documento Google Docs que será copiado a cada nova pauta.
+          Normalmente é a última pauta gerada.
+        </p>
+        <div class="input-validate-row">
+          <input
+            pInputText
+            type="text"
+            placeholder="Cole a URL ou ID do arquivo..."
+            [ngModel]="ultimoDriveFileId()"
+            (ngModelChange)="onArquivoInput($event)"
+            [class.input-ok]="arquivoValidado() === true"
+            [class.input-erro]="arquivoValidado() === false"
+            class="flex-input"
+          />
+          <p-button
+            label="Validar"
+            icon="pi pi-check"
+            severity="secondary"
+            [outlined]="true"
+            [loading]="validandoDrive()"
+            [disabled]="!ultimoDriveFileId().trim() || validandoDrive()"
+            (onClick)="validarArquivo()"
+          />
+        </div>
+
+        @if (arquivoValidado() === true) {
+          <div class="feedback ok">
+            <i class="pi pi-check-circle"></i> Arquivo encontrado e acessível.
+          </div>
+        }
+        @if (arquivoValidado() === false) {
+          <div class="feedback erro">
+            <i class="pi pi-times-circle"></i> Arquivo não encontrado. Verifique o ID e as permissões.
+          </div>
+        }
+      </div>
+
+    </p-card>
+
+    <!-- ══════════════════════════════════════════════════════════
+         CARD 2 — Compartilhamento
+    ═══════════════════════════════════════════════════════════ -->
+    <p-card styleClass="config-card">
+      <ng-template pTemplate="header">
+        <div class="card-header">
+          <i class="pi pi-share-alt"></i>
+          <span>Compartilhamento</span>
+        </div>
+      </ng-template>
+
+      <div class="field-group">
+        <label class="field-label">E-mail do supervisor</label>
+        <p class="field-desc">
+          Toda nova pauta será compartilhada automaticamente com este e-mail.
+          Deixe em branco para não compartilhar automaticamente.
+        </p>
+        <input
+          pInputText
+          type="email"
+          placeholder="supervisor@empresa.com"
+          [ngModel]="supervisorEmail()"
+          (ngModelChange)="supervisorEmail.set($event)"
+          class="w-full"
+        />
+      </div>
+
+    </p-card>
+
+    <!-- ── BOTÃO SALVAR ───────────────────────────────────────── -->
+    <div class="salvar-row">
+      <p-button
+        label="Salvar configurações"
+        icon="pi pi-save"
+        size="large"
+        [loading]="salvando()"
+        [disabled]="!driveRootFolderId().trim() || !ultimoDriveFileId().trim() || salvando()"
+        (onClick)="salvar()"
+        styleClass="btn-salvar"
+      />
+
+      @if (!driveRootFolderId().trim() || !ultimoDriveFileId().trim()) {
+        <small class="hint-invalido">
+          Preencha a pasta raiz e o arquivo base para salvar.
+        </small>
+      }
+    </div>
+
+  </div>
+}

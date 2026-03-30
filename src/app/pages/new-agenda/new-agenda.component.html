@@ -1,0 +1,332 @@
+<p-toast position="top-right" />
+
+<!-- Loading inicial -->
+@if (carregando()) {
+  <div class="loading-overlay">
+    <p-progressSpinner strokeWidth="4" />
+    <p>Carregando dados...</p>
+  </div>
+}
+
+@if (!carregando()) {
+  <div class="nova-pauta-container">
+
+    <!-- ── CABEÇALHO ─────────────────────────────────────────── -->
+    <div class="page-header">
+      <h1><i class="pi pi-file-edit"></i> Nova Pauta</h1>
+      <p class="subtitle">Preencha os dados da reunião de hoje</p>
+    </div>
+
+    <div class="content-grid">
+
+      <!-- ══════════════════════════════════════════════════════ -->
+      <!-- COLUNA ESQUERDA — Dados gerais                        -->
+      <!-- ══════════════════════════════════════════════════════ -->
+      <div class="col-left">
+
+        <!-- Assunto da reunião -->
+        <p-card styleClass="form-card">
+          <ng-template pTemplate="header">
+            <div class="card-header">
+              <i class="pi pi-bookmark"></i>
+              <span>Assunto da Reunião</span>
+            </div>
+          </ng-template>
+
+          <input
+            pInputText
+            type="text"
+            placeholder="Ex: Alinhamento de Sprint #12"
+            [ngModel]="assunto()"
+            (ngModelChange)="assunto.set($event)"
+            class="w-full"
+          />
+        </p-card>
+
+        <!-- Horário e Local -->
+        <p-card styleClass="form-card">
+          <ng-template pTemplate="header">
+            <div class="card-header">
+              <i class="pi pi-clock"></i>
+              <span>Horário e Local</span>
+            </div>
+          </ng-template>
+
+          <div class="two-cols">
+            <div class="field">
+              <label>Horário de início</label>
+              <input
+                pInputText
+                type="time"
+                [ngModel]="horario()"
+                (ngModelChange)="horario.set($event)"
+                class="w-full"
+              />
+            </div>
+
+            <div class="field">
+              <label>Local</label>
+              <input
+                pInputText
+                type="text"
+                placeholder="Ex: Sala 3 / Google Meet"
+                [ngModel]="local()"
+                (ngModelChange)="local.set($event)"
+                class="w-full"
+              />
+            </div>
+          </div>
+        </p-card>
+
+        <!-- Participantes -->
+        <p-card styleClass="form-card">
+          <ng-template pTemplate="header">
+            <div class="card-header">
+              <i class="pi pi-users"></i>
+              <span>Participantes</span>
+              <p-tag [value]="participantes().length.toString()" severity="secondary" />
+            </div>
+          </ng-template>
+
+          <!-- Input adicionar -->
+          <p-inputgroup>
+            <input
+              pInputText
+              type="text"
+              placeholder="Nome do participante..."
+              [ngModel]="novoParticipante()"
+              (ngModelChange)="novoParticipante.set($event)"
+              (keydown)="onParticipanteKeydown($event)"
+            />
+            <p-inputgroup-addon>
+              <p-button
+                icon="pi pi-plus"
+                severity="secondary"
+                [text]="true"
+                (onClick)="adicionarParticipante()"
+                pTooltip="Adicionar (Enter)"
+              />
+            </p-inputgroup-addon>
+          </p-inputgroup>
+
+          <!-- Chips -->
+          @if (participantes().length > 0) {
+            <div class="chips-container">
+              @for (p of participantes(); track p) {
+                <p-chip
+                  [label]="p"
+                  [removable]="true"
+                  (onRemove)="removerParticipante(p)"
+                />
+              }
+            </div>
+          }
+
+          @if (participantes().length === 0) {
+            <p class="empty-hint">Nenhum participante adicionado ainda.</p>
+          }
+        </p-card>
+
+        <!-- Responsáveis -->
+        <p-card styleClass="form-card">
+          <ng-template pTemplate="header">
+            <div class="card-header">
+              <i class="pi pi-user-edit"></i>
+              <span>Responsável(is)</span>
+            </div>
+          </ng-template>
+
+          <input
+            pInputText
+            type="text"
+            placeholder="Ex: João Silva, Maria Souza"
+            [ngModel]="responsaveis()"
+            (ngModelChange)="responsaveis.set($event)"
+            class="w-full"
+          />
+          <small class="hint">Separe por vírgula para múltiplos responsáveis</small>
+        </p-card>
+
+      </div>
+
+      <!-- ══════════════════════════════════════════════════════ -->
+      <!-- COLUNA DIREITA — Itens da pauta                       -->
+      <!-- ══════════════════════════════════════════════════════ -->
+      <div class="col-right">
+
+        <p-card styleClass="form-card itens-card">
+          <ng-template pTemplate="header">
+            <div class="card-header">
+              <i class="pi pi-list"></i>
+              <span>Itens da Pauta</span>
+              <p-tag [value]="itens().length.toString()" severity="secondary" />
+            </div>
+          </ng-template>
+
+          @if (itens().length === 0) {
+            <div class="empty-itens">
+              <i class="pi pi-inbox"></i>
+              <p>Nenhum item adicionado.</p>
+              <p-button
+                label="Adicionar primeiro item"
+                icon="pi pi-plus"
+                severity="secondary"
+                [outlined]="true"
+                (onClick)="adicionarItem()"
+              />
+            </div>
+          }
+
+          <!-- Lista de itens -->
+          <div class="itens-list">
+            @for (item of itens(); track trackByIndex($index); let i = $index) {
+              <div class="item-pauta">
+
+                <!-- Número do item -->
+                <div class="item-numero">{{ i + 1 }}</div>
+
+                <!-- Conteúdo do item -->
+                <div class="item-content">
+
+                  <!-- Título -->
+                  <input
+                    pInputText
+                    type="text"
+                    placeholder="Assunto do item..."
+                    [ngModel]="item.titulo"
+                    (ngModelChange)="atualizarItem(i, 'titulo', $event)"
+                    class="w-full item-titulo"
+                  />
+
+                  <!-- Subitem (opcional) -->
+                  <textarea
+                    pTextarea
+                    [rows]="2"
+                    placeholder="Subitem ou detalhes (opcional)..."
+                    [ngModel]="item.subitem"
+                    (ngModelChange)="atualizarItem(i, 'subitem', $event)"
+                    class="w-full item-subitem"
+                    [autoResize]="true"
+                  ></textarea>
+
+                  <!-- Duração -->
+                  <div class="item-duracao">
+                    <label>Duração:</label>
+                    <p-selectButton
+                      [options]="duracoes"
+                      [ngModel]="item.duracao"
+                      (ngModelChange)="atualizarItem(i, 'duracao', $event)"
+                      optionLabel="label"
+                      optionValue="value"
+                    />
+                  </div>
+
+                </div>
+
+                <!-- Ações do item -->
+                <div class="item-acoes">
+                  <p-button
+                    icon="pi pi-arrow-up"
+                    severity="secondary"
+                    [text]="true"
+                    size="small"
+                    [disabled]="i === 0"
+                    (onClick)="moverItem(i, 'up')"
+                    pTooltip="Mover para cima"
+                  />
+                  <p-button
+                    icon="pi pi-arrow-down"
+                    severity="secondary"
+                    [text]="true"
+                    size="small"
+                    [disabled]="i === itens().length - 1"
+                    (onClick)="moverItem(i, 'down')"
+                    pTooltip="Mover para baixo"
+                  />
+                  <p-button
+                    icon="pi pi-trash"
+                    severity="danger"
+                    [text]="true"
+                    size="small"
+                    (onClick)="removerItem(i)"
+                    pTooltip="Remover item"
+                  />
+                </div>
+
+              </div>
+
+              <p-divider v-if="i < itens().length - 1" />
+            }
+          </div>
+
+          <!-- Botão adicionar item -->
+          @if (itens().length > 0) {
+            <div class="add-item-row">
+              <p-button
+                label="Adicionar item"
+                icon="pi pi-plus"
+                severity="secondary"
+                [text]="true"
+                (onClick)="adicionarItem()"
+              />
+            </div>
+          }
+
+        </p-card>
+
+        <!-- ── TOTALIZADOR ──────────────────────────────────── -->
+        @if (itens().length > 0) {
+          <div class="totalizador">
+            <div class="total-info">
+              <i class="pi pi-stopwatch"></i>
+              <span>Duração total estimada:</span>
+              <strong>{{ totalFormatado() }}</strong>
+              <span class="total-min">({{ totalMinutos() }} min)</span>
+            </div>
+          </div>
+        }
+
+        <!-- ── AÇÃO FINAL ───────────────────────────────────── -->
+        <div class="acoes-finais">
+
+          @if (!driveUrl()) {
+            <p-button
+              label="Gerar pauta no Google Drive"
+              icon="pi pi-google"
+              size="large"
+              [loading]="gerandoDrive()"
+              [disabled]="!formularioValido() || gerandoDrive()"
+              (onClick)="gerarNoDrive()"
+              styleClass="btn-gerar"
+            />
+
+            @if (!formularioValido() && !carregando()) {
+              <small class="hint-invalido">
+                @if (!assunto().trim()) { Preencha o assunto da reunião. }
+                @else if (itens().length === 0) { Adicione ao menos um item à pauta. }
+                @else if (!userConfig()?.driveRootFolderId) { Configure a pasta do Drive em Configurações. }
+              </small>
+            }
+          }
+
+          @if (driveUrl()) {
+            <div class="sucesso-box">
+              <i class="pi pi-check-circle"></i>
+              <div>
+                <strong>Pauta criada com sucesso!</strong>
+                <p>O documento foi gerado e compartilhado no Google Drive.</p>
+              </div>
+              <p-button
+                label="Abrir no Drive"
+                icon="pi pi-external-link"
+                (onClick)="abrirNoDrive()"
+              />
+            </div>
+          }
+
+        </div>
+
+      </div>
+    </div>
+  </div>
+}

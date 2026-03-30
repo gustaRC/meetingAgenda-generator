@@ -1,0 +1,220 @@
+// ─── Layout ───────────────────────────────────────────────────────────────────
+.config-container {
+  max-width: 720px;
+  margin: 0 auto;
+  padding: 1.5rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+}
+
+// ─── Loading ──────────────────────────────────────────────────────────────────
+.loading-overlay {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 60vh;
+  gap: 1rem;
+  color: var(--p-text-muted-color);
+}
+
+// ─── Cabeçalho ───────────────────────────────────────────────────────────────
+.page-header {
+  h1 {
+    font-size: 1.75rem;
+    font-weight: 700;
+    color: var(--p-text-color);
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    margin: 0 0 0.25rem;
+
+    i { color: var(--p-primary-color); }
+  }
+
+  .subtitle {
+    color: var(--p-text-muted-color);
+    margin: 0;
+    font-size: 0.9rem;
+  }
+}
+
+// ─── Cards ────────────────────────────────────────────────────────────────────
+:host ::ng-deep .config-card {
+  .p-card-body   { padding: 0; }
+  .p-card-content { padding: 1.25rem; }
+}
+
+.card-header {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.85rem 1.25rem;
+  border-bottom: 1px solid var(--p-content-border-color);
+  font-weight: 600;
+  font-size: 0.9rem;
+  color: var(--p-text-color);
+
+  i {
+    color: var(--p-primary-color);
+    font-size: 0.95rem;
+  }
+}
+
+// ─── Instrução ────────────────────────────────────────────────────────────────
+.instrucao-box {
+  display: flex;
+  gap: 0.875rem;
+  background: var(--p-highlight-background, #f0f9ff);
+  border: 1px solid var(--p-highlight-border-color, #bae6fd);
+  border-radius: 8px;
+  padding: 1rem 1.125rem;
+  margin-bottom: 0.25rem;
+
+  > i {
+    color: #0ea5e9;
+    font-size: 1rem;
+    margin-top: 0.15rem;
+    flex-shrink: 0;
+  }
+
+  div {
+    flex: 1;
+
+    strong {
+      display: block;
+      font-size: 0.875rem;
+      margin-bottom: 0.3rem;
+      color: var(--p-text-color);
+    }
+
+    p {
+      font-size: 0.83rem;
+      color: var(--p-text-muted-color);
+      margin: 0 0 0.5rem;
+      line-height: 1.55;
+    }
+  }
+}
+
+.link-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  background: none;
+  border: none;
+  color: #0ea5e9;
+  font-size: 0.82rem;
+  cursor: pointer;
+  padding: 0;
+  font-family: inherit;
+  transition: color 0.15s;
+
+  &:hover { color: #0284c7; text-decoration: underline; }
+}
+
+// ─── Field group ─────────────────────────────────────────────────────────────
+.field-group {
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+  padding: 0.25rem 0;
+}
+
+.field-label {
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: var(--p-text-color);
+
+  .required {
+    color: var(--p-red-500, #ef4444);
+    margin-left: 0.2rem;
+  }
+}
+
+.field-desc {
+  font-size: 0.8rem;
+  color: var(--p-text-muted-color);
+  margin: 0 0 0.25rem;
+  line-height: 1.5;
+
+  code {
+    background: var(--p-surface-100, #f1f5f9);
+    border-radius: 4px;
+    padding: 0.1rem 0.35rem;
+    font-size: 0.78rem;
+    color: var(--p-text-color);
+  }
+}
+
+// ─── Input com botão de validação ────────────────────────────────────────────
+.input-validate-row {
+  display: flex;
+  gap: 0.625rem;
+  align-items: center;
+}
+
+.flex-input {
+  flex: 1;
+  min-width: 0;
+
+  &.input-ok {
+    border-color: var(--p-green-500, #22c55e) !important;
+    box-shadow: 0 0 0 1px var(--p-green-500, #22c55e);
+  }
+
+  &.input-erro {
+    border-color: var(--p-red-400, #f87171) !important;
+    box-shadow: 0 0 0 1px var(--p-red-400, #f87171);
+  }
+}
+
+// ─── Feedback de validação ────────────────────────────────────────────────────
+.feedback {
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+  font-size: 0.82rem;
+  border-radius: 6px;
+  padding: 0.4rem 0.75rem;
+  animation: fadeIn 0.2s ease;
+
+  &.ok {
+    background: #f0fdf4;
+    color: #16a34a;
+    border: 1px solid #bbf7d0;
+  }
+
+  &.erro {
+    background: #fef2f2;
+    color: #b91c1c;
+    border: 1px solid #fecaca;
+  }
+}
+
+// ─── Botão salvar ────────────────────────────────────────────────────────────
+.salvar-row {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 0.5rem;
+}
+
+:host ::ng-deep .btn-salvar {
+  min-width: 220px;
+  justify-content: center;
+}
+
+.hint-invalido {
+  font-size: 0.8rem;
+  color: var(--p-orange-500, #f97316);
+}
+
+// ─── Utilitários ─────────────────────────────────────────────────────────────
+.w-full { width: 100%; }
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(-4px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
