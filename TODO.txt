@@ -1,6 +1,0 @@
-A FAZER/TODO:
-- Não identifica se está logado ou não, gerando erro na hora de salvar confiugrações e criar pauta
-- Automatizar campos da nova pauta, salvar banco de dados/internamento e já preencher automaticamente (???)
-- Separar interfaces/models dos services
-- Corrigir simbolos
-- Utilizar loading/tooltip padrões
