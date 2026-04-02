@@ -1,8 +1,8 @@
 import { Component } from '@angular/core';
 import { DialogModule } from 'primeng/dialog';
-import { LoadingService } from '../../services/messages/loading.service';
 import { CommonModule } from '@angular/common';
 import { LoadingAnimation } from './loading-animation.component';
+import { LoadingService } from '../services/messages/loading.service';
 
 @Component({
   selector: 'loading-modal',

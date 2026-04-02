@@ -8,7 +8,7 @@
   "auth": {
     "providers": {
       "googleSignIn": {
-        "oAuthBrandDisplayName": "Meeting Agenda - Generator",
+        "oAuthBrandDisplayName": "MAG - Meeting Agenda Generator",
         "supportEmail": "gustavorcprofissional@gmail.com"
       }
     }
