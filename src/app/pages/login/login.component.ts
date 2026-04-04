@@ -19,7 +19,7 @@ export class LoginComponent {
     this.erro.set(null);
     this.carregando.set(true);
     try {
-      await this.authService.loginWithGoogle();
+      await this.authService.loginWithGoogle(); // TODO chamar diretamente no btn no html
       await this.router.navigate(['/nova-pauta']);
     } catch (e: any) {
       // Usuário fechou o popup — não é erro real

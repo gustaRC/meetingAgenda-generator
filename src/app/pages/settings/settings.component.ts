@@ -14,9 +14,10 @@ import { TooltipModule } from 'primeng/tooltip';
 import { MessageService } from 'primeng/api';
 
 // Services
-import { FirestoreService, UserConfig } from '../../core/services/firestore.service';
+import { FirestoreService } from '../../core/services/firestore.service';
 import { AuthService } from '../../core/services/auth.service';
 import { DriveService } from '../../core/services/drive.service';
+import { UserConfig } from '../../shared/interfaces/userConfig.interface';
 
 @Component({
   selector: 'app-settings',

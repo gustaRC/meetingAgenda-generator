@@ -18,10 +18,15 @@ import { InputGroupModule } from 'primeng/inputgroup';
 import { InputGroupAddonModule } from 'primeng/inputgroupaddon';
 
 // Services
-import { FirestoreService, ItemPauta, Template, UserConfig } from '../../core/services/firestore.service';
+import { FirestoreService } from '../../core/services/firestore.service';
 import { DriveService } from '../../core/services/drive.service';
 import { AuthService } from '../../core/services/auth.service';
 import { DocxGeneratorService } from '../../core/services/docx-generator-service.service';
+
+// Interfaces
+import { ItemPauta } from '../../shared/interfaces/itemPauta.interface';
+import { UserConfig } from '../../shared/interfaces/userConfig.interface';
+import { Template } from '../../shared/interfaces/template.interface';
 
 // ─── Duração pré-definida em minutos ───────────────────────────────────────
 const DURACOES = [
