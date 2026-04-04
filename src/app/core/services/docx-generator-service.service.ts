@@ -4,11 +4,9 @@ import {
   AlignmentType, LevelFormat, WidthType,
   BorderStyle,
 } from 'docx';
-import { Pauta } from './firestore.service';
 
-// ─── Tipos auxiliares ─────────────────────────────────────────────────────────
-export interface PautaDocx extends Omit<Pauta,
-  'id' | 'criadaEm' | 'driveFileId' | 'driveFileUrl' | 'compartilhadoCom'> {}
+// Interfaces
+import { PautaDocx } from '../../shared/interfaces/pautaDocx.interface';
 
 @Injectable({ providedIn: 'root' })
 export class DocxGeneratorService {

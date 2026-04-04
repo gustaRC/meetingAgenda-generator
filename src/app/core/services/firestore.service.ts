@@ -20,52 +20,11 @@ import {
 import { Auth } from '@angular/fire/auth';
 import { Observable, from, map } from 'rxjs';
 
-// ─────────────────────────────────────────
-// Models
-// ─────────────────────────────────────────
-
-export interface ItemPauta {
-  titulo: string;
-  duracao: number; // em minutos
-  subitem?: string;
-}
-
-export interface Template {
-  id?: string;
-  nome: string;
-  participantes: string[];
-  horario: string;         // ex: "09:00"
-  local: string;
-  itens: ItemPauta[];
-  criadoEm?: Timestamp;
-  atualizadoEm?: Timestamp;
-}
-
-export interface Pauta {
-  id?: string;
-  assunto: string;
-  participantes: string[];
-  horario: string;
-  local: string;
-  itens: ItemPauta[];
-  totalMinutos: number;
-  responsaveis: string[];
-  driveFileId: string;
-  driveFileUrl: string;
-  compartilhadoCom: string[];
-  criadaEm?: Timestamp;
-}
-
-export interface UserConfig {
-  driveRootFolderId: string;       // ID da pasta raiz das pautas no Drive
-  supervisorEmail: string;         // E-mail do supervisor para compartilhar
-  ultimoTemplateId?: string;       // ID do último template usado
-  ultimoDriveFileId?: string;      // ID do último arquivo de pauta no Drive (para copiar)
-}
-
-// ─────────────────────────────────────────
-// Service
-// ─────────────────────────────────────────
+// Interfaces
+import { Template } from '../../shared/interfaces/template.interface';
+import { Pauta } from '../../shared/interfaces/pauta.interface';
+import { ItemPauta } from '../../shared/interfaces/itemPauta.interface';
+import { UserConfig } from '../../shared/interfaces/userConfig.interface';
 
 @Injectable({ providedIn: 'root' })
 export class FirestoreService {

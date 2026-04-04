@@ -57,3 +57,17 @@ Angular CLI does not come with an end-to-end testing framework by default. You c
 ## Additional Resources
 
 For more information on using the Angular CLI, including detailed command references, visit the [Angular CLI Overview and Command Reference](https://angular.dev/tools/cli) page.
+
+-----
+
+## Estrutura de Commits
+
+| Tipo | Quando usar |
+|---|---|
+| feat | Nova funcionalidade |
+| fix | Correção de bug |
+| refactor | Melhorou código sem mudar comportamento |
+| style | Formatação (espaço, identação, etc.) |
+| docs | Documentação |
+| test | Testes |
+| chore | Coisas técnicas (config, deps, build) |

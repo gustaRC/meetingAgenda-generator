@@ -13,12 +13,8 @@ import { DividerModule } from 'primeng/divider';
 
 import { AuthService } from './core/services/auth.service';
 
-interface NavItem {
-  label: string;
-  icon: string;
-  route: string;
-  tooltip: string;
-}
+// Interfaces
+import { NavItem } from './shared/interfaces/navItem.interface';
 
 @Component({
   selector: 'app-root',
